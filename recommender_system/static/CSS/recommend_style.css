@@ -1,0 +1,157 @@
+/* Page-specific styling for the recommender page.
+   Uses the same palette and primitives as prophe/static/CSS/style.css */
+
+.reco-page {
+  max-width: 1100px;
+}
+
+.reco-hero {
+  margin-bottom: 18px;
+}
+
+.reco-hero h1 {
+  font-size: 30px;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: 0.2px;
+  margin-bottom: 6px;
+}
+
+.reco-hero p {
+  font-size: 14px;
+  color: #475569;
+}
+
+.reco-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  align-items: start;
+}
+
+.reco-card h2 {
+  font-size: 20px;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 12px;
+}
+
+.reco-form .field {
+  display: flex;
+  flex-direction: column;
+}
+
+.reco-form .field label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #334155;
+  margin-bottom: 6px;
+}
+
+.reco-inline {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.reco-inline input {
+  margin: 0;
+  flex: 1;
+}
+
+.reco-inline button {
+  height: 42px;
+  padding: 10px 16px;
+  white-space: nowrap;
+}
+
+.results-title {
+  margin-top: 14px;
+  font-size: 14px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.results-list {
+  margin-top: 10px;
+  list-style: none;
+  padding-left: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.results-item {
+  padding: 10px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.results-item .name {
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.results-item .meta {
+  font-size: 13px;
+  color: #475569;
+}
+
+.empty-state {
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 12px;
+  background: #f1f5f9;
+  border: 1px dashed #cbd5e1;
+  color: #475569;
+  font-size: 14px;
+}
+
+.table-wrap {
+  margin-top: 10px;
+  overflow-x: auto;
+}
+
+.reco-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 520px;
+}
+
+.reco-table thead th {
+  text-align: left;
+  font-size: 13px;
+  color: #475569;
+  padding: 10px;
+  border-bottom: 1px solid #e2e8f0;
+  background: #f8fafc;
+}
+
+.reco-table tbody td {
+  padding: 10px;
+  border-bottom: 1px solid #e2e8f0;
+  color: #0f172a;
+  font-size: 14px;
+}
+
+.reco-table tbody tr:hover td {
+  background: #f1f5f9;
+}
+
+.reco-table .score {
+  font-variant-numeric: tabular-nums;
+  color: #1e293b;
+}
+
+@media (max-width: 900px) {
+  .reco-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .reco-table {
+    min-width: 0;
+  }
+}

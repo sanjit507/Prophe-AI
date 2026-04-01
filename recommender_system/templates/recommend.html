@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Recommend · Apartments{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'CSS/recommend_style.css' %}">
+{% endblock %}
+
+{% block content %}
+<main class="page-shell reco-page">
+    <section class="reco-hero">
+        <h1>Apartment Recommendation</h1>
+        <p>Search nearby apartments by landmark and get similar property recommendations.</p>
+    </section>
+
+    <section class="reco-grid">
+        <div class="card reco-card">
+            <h2>Select Location and Radius</h2>
+
+            <form method="post" class="reco-form">
+                {% csrf_token %}
+
+                <div class="field">
+                    <label for="location">Location</label>
+                    <select id="location" name="location">
+                        {% for loc in locations %}
+                            <option value="{{ loc }}" {% if selected_location == loc %}selected{% endif %}>{{ loc }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="radius">Radius (KM)</label>
+                    <div class="reco-inline">
+                        <input id="radius" type="number" name="radius" placeholder="e.g. 2.5" step="0.1" min="0" value="{% if radius %}{{ radius }}{% endif %}">
+                        <button type="submit" name="search_location">Search</button>
+                    </div>
+                </div>
+            </form>
+
+            {% if location_results %}
+                <div class="results-title">Nearby Locations{% if selected_location %} near {{ selected_location }}{% endif %}</div>
+                <ul class="results-list">
+                    {% for name, dist in location_results %}
+                        <li class="results-item">
+                            <span class="name">{{ name }}</span>
+                            <span class="meta">{{ dist }} km</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <div class="empty-state">Pick a location and radius, then hit Search.</div>
+            {% endif %}
+        </div>
+
+        <div class="card reco-card">
+            <h2>Recommend Apartments</h2>
+
+            <form method="post" class="reco-form">
+                {% csrf_token %}
+
+                <div class="field">
+                    <label for="apartment">Apartment</label>
+                    <select id="apartment" name="apartment">
+                        {% for apt in apartments %}
+                            <option value="{{ apt }}" {% if selected_apartment == apt %}selected{% endif %}>{{ apt }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <button type="submit" name="recommend">Recommend</button>
+            </form>
+
+            {% if recommendations %}
+                <div class="results-title">Recommendations{% if selected_apartment %} for {{ selected_apartment }}{% endif %}</div>
+                <div class="table-wrap">
+                    <table class="reco-table">
+                        <thead>
+                            <tr>
+                                <th>Property</th>
+                                <th>Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in recommendations %}
+                                <tr>
+                                    <td>{{ item.PropertyName }}</td>
+                                    <td class="score">{{ item.SimilarityScore }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="empty-state">Select an apartment and click Recommend.</div>
+            {% endif %}
+        </div>
+    </section>
+</main>
+{% endblock %}

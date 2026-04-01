@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Predict · Price Predictor{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'CSS/prediction_style.css' %}">
+{% endblock %}
+
+{% block content %}
+<main class="page-shell">
+    <section class="hero-card">
+        <p class="eyebrow">Price Predictor</p>
+        <h1>Gurugram House Price Prediction</h1>
+        <p class="subtitle">Enter property details to estimate a price range.</p>
+
+        {% if error %}
+            <div class="alert alert-error">{{ error }}</div>
+        {% endif %}
+
+        <form method="post" action="{% url 'predict' %}" class="prediction-form">
+            {% csrf_token %}
+
+            <div class="form-grid">
+                <div class="field">
+                    <label for="property_type">Property Type</label>
+                    <select id="property_type" name="property_type">
+                        <option value="flat">Flat</option>
+                        <option value="house">House</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="sector">Sector</label>
+                    <select id="sector" name="sector">
+                        {% for s in sectors %}
+                            <option value="{{ s }}">{{ s }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="bedroom">Bedrooms</label>
+                    <select id="bedroom" name="bedroom">
+                        {% for b in bedrooms %}
+                            <option value="{{ b }}">{{ b }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="bathroom">Bathrooms</label>
+                    <select id="bathroom" name="bathroom">
+                        {% for b in bathrooms %}
+                            <option value="{{ b }}">{{ b }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="balcony">Balcony</label>
+                    <select id="balcony" name="balcony">
+                        {% for b in balconies %}
+                            <option value="{{ b }}">{{ b }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="property_age">Property Age</label>
+                    <select id="property_age" name="property_age">
+                        {% for a in ages %}
+                            <option value="{{ a }}">{{ a }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="area">Area</label>
+                    <input id="area" type="number" name="area" step="0.01" min="0" placeholder="Enter area" required>
+                </div>
+
+                <div class="field">
+                    <label for="servant_room">Servant Room</label>
+                    <select id="servant_room" name="servant_room">
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="store_room">Store Room</label>
+                    <select id="store_room" name="store_room">
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="furnishing">Furnishing</label>
+                    <select id="furnishing" name="furnishing">
+                        {% for f in furnishing %}
+                            <option value="{{ f }}">{{ f }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="luxury">Luxury</label>
+                    <select id="luxury" name="luxury">
+                        {% for l in luxury %}
+                            <option value="{{ l }}">{{ l }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="floor">Floor</label>
+                    <select id="floor" name="floor">
+                        {% for f in floor %}
+                            <option value="{{ f }}">{{ f }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">Predict</button>
+        </form>
+    </section>
+</main>
+{% endblock %}

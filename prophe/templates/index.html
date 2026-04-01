@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block title %}Prophe AI | Advanced Real Estate Platform{% endblock %}
+
+{% block content %}
+<main class="page-shell">
+    <section class="hero-card hero-modern">
+        <div class="hero-content">
+            <span class="badge-new">New Features Live!</span>
+            <h1>Intelligence for Real Estate.</h1>
+            <p class="subtitle">Experience the future of property valuation in Gurugram. Predict prices, explore interactive analytics, and find your perfect home using cutting-edge AI technology.</p>
+            
+            <div class="cta-row-left">
+                <a class="submit-btn btn-xl" href="{% url 'predict' %}">Start Predicting</a>
+                <a class="back-link btn-xl" href="/Analytics/">Explore Data</a>
+            </div>
+
+            {% if model_error %}
+                <div class="alert alert-error">{{ model_error }}</div>
+            {% endif %}
+        </div>
+        <div class="hero-image">
+            <div class="glass-orb"></div>
+            <div class="glass-card">
+                <h3>Gurugram Market</h3>
+                <p>10,000+ Properties Analyzed</p>
+                <div class="chart-bar"></div>
+                <div class="chart-bar w-70"></div>
+                <div class="chart-bar w-50"></div>
+            </div>
+        </div>
+    </section>
+<br>
+    <div class="animated-banner">
+        🚀 <strong>Current Focus:</strong> Our model is trained exclusively on the <strong>Gurugram</strong> dataset. <br>
+        🌍 <strong>Coming Soon:</strong> Adding support for PATNA,Bihar
+    </div>
+
+    <!-- Quick Stats -->
+    <section class="quick-stats">
+        <div class="stat-item">
+            <h2>94%</h2>
+            <p>Prediction Accuracy</p>
+        </div>
+        <div class="stat-item">
+            <h2>150+</h2>
+            <p>Neighborhoods Mapped</p>
+        </div>
+        <div class="stat-item">
+            <h2>3.2M+</h2>
+            <p>Data Points Ingested</p>
+        </div>
+    </section>
+
+    <!-- Why Choose Us / Features -->
+    <section class="features-section">
+        <div class="section-header">
+            <h2>Why Choose Prophe AI</h2>
+            <p>We transform complex real estate data into actionable insights instantly.</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-box">
+                <div class="icon-wrap">💡</div>
+                <h3>Smart Price Estimator</h3>
+                <p>Input property details like location, bedrooms, and layout to get highly accurate price estimates powered by random forest algorithms.</p>
+                <a href="{% url 'predict' %}" class="text-link">Try Predictor &rarr;</a>
+            </div>
+            
+            <div class="feature-box">
+                <div class="icon-wrap">📊</div>
+                <h3>Interactive Analytics</h3>
+                <p>Dive deep into real estate trends with interactive Plotly maps, scatter plots, and distribution charts broken down by sector.</p>
+                <a href="/Analytics/" class="text-link">Open Dashboard &rarr;</a>
+            </div>
+
+            <div class="feature-box">
+                <div class="icon-wrap">🏠</div>
+                <h3>Intelligent Recommender</h3>
+                <p>Found a society you like? Let our AI suggest similar properties based on features, amenities, and pricing structures.</p>
+                <a href="/recommend/" class="text-link">Find Homes &rarr;</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it works (Simplified) -->
+    <section class="how-it-works">
+        <h2>Powered by Data, Designed for You</h2>
+        <div class="steps-modern">
+            <div class="step-card-modern">
+                <div class="step-number">01</div>
+                <h3>Input Details</h3>
+                <p>Select location and features.</p>
+            </div>
+            <div class="step-line"></div>
+            <div class="step-card-modern">
+                <div class="step-number">02</div>
+                <h3>AI Processing</h3>
+                <p>Models run against millions of data points.</p>
+            </div>
+            <div class="step-line"></div>
+            <div class="step-card-modern">
+                <div class="step-number">03</div>
+                <h3>Instant Results</h3>
+                <p>Receive estimates & recommendations.</p>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

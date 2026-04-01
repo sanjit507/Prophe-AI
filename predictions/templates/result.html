@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Result · Price Predictor{% endblock %}
+
+{% block content %}
+<main class="page-shell">
+    <section class="hero-card result-card">
+        <p class="eyebrow">Prediction Complete</p>
+        <h1>Prediction Result</h1>
+        <div class="result-box">
+            <span class="result-label">Estimated Price Range</span>
+            <strong class="result-value">{{ low }} Cr - {{ high }} Cr</strong>
+        </div>
+        <br>    <br>
+        <a class="back-link" href="{% url 'predict' %}">Predict Another</a>
+    </section>
+</main>
+{% endblock %}

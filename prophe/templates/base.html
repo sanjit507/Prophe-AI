@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} Prophe AI {% endblock %}</title>
+   <link rel="stylesheet" href="{% static 'CSS/style.css' %}">
+   {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <header class="top-nav">
+        <div class="nav-inner">
+            <a class="brand" href="/">Prophe AI</a>
+            <nav class="nav-links">
+                <a class="nav-link" href="/">Home</a>
+                <a class="nav-link nav-link-primary" href="/predictions/predict/">Predict</a>
+                <a class="nav-link nav-link-primary" href="/recommend/">Recommendation</a>
+                <a class="nav-link nav-link-primary" href="/Analytics/">Analytics</a>
+              
+                <a class="nav-link" href="/about/">About Us</a>
+                <a class="nav-link" href="/developer/">Developer</a>
+            </nav>
+        </div>
+    </header>
+
+    {% block content %}{% endblock %}
+
+    <footer class="main-footer">
+        <div class="footer-inner">
+            <div class="footer-col">
+                <h3 style="color:white; margin-bottom: 10px;">Prophe AI</h3>
+                <p>Empowering your real estate decisions with Machine Learning.</p>
+            </div>
+            <div class="footer-links">
+                <a href="/">Home</a>
+                <a href="/about/">About</a>
+                <a href="/developer/">Developer</a>
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+                <a href="/admin/">Admin</a>
+            </div>
+        </div>
+        <div style="text-align:center; padding-top:20px; border-top:1px solid #1e293b; margin-top:20px; width:90%; max-width:1200px; margin-left:auto; margin-right:auto; font-size: 13px;">
+            <p>&copy; 2026 Prophe AI. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

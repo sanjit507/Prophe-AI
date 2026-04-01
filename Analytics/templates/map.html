@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+
+{% block title %}Analytics - Prophe AI{% endblock %}
+
+{% block extra_css %}
+<style>
+    .analytics-container {
+        display: flex;
+        min-height: 80vh;
+        background-color: #f8f9fa;
+        font-family: 'Inter', sans-serif;
+    }
+
+    .sidebar {
+        width: 300px;
+        background: white;
+        padding: 25px;
+        border-right: 1px solid #dee2e6;
+        box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+        z-index: 10;
+        position: sticky;
+        top: 60px;
+        height: calc(100vh - 60px);
+    }
+
+    .sidebar h3 {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+        color: #333;
+        font-weight: 600;
+        border-bottom: 2px solid #007bff;
+        padding-bottom: 10px;
+    }
+
+    .filter-group {
+        margin-bottom: 25px;
+    }
+
+    .filter-group label {
+        display: block;
+        font-weight: 500;
+        margin-bottom: 8px;
+        color: #555;
+    }
+
+    .filter-group select {
+        width: 100%;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid #ced4da;
+        background-color: #fff;
+        font-size: 0.95rem;
+    }
+
+    .main-content {
+        flex: 1;
+        padding: 30px;
+        overflow-y: auto;
+    }
+
+    .chart-card {
+        background: white;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        border: 1px solid rgba(0,0,0,0.03);
+    }
+
+    .chart-card h2 {
+        font-size: 1.4rem;
+        margin-bottom: 20px;
+        color: #222;
+        font-weight: 600;
+    }
+
+    .submit-btn {
+        width: 100%;
+        padding: 12px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    .submit-btn:hover {
+        background-color: #0056b3;
+    }
+</style>
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="analytics-container">
+    <aside class="sidebar">
+        <h3>Global Filters</h3>
+        <form method="get" action="">
+            <div class="filter-group">
+                <label for="sector">Select Sector</label>
+                <select name="sector" id="sector">
+                    <option value="overall" {% if selected_sector == 'overall' %}selected{% endif %}>Overall (All Sectors)</option>
+                    {% for s in sectors %}
+                        <option value="{{ s }}" {% if s == selected_sector %}selected{% endif %}>{{ s }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <h3>Chart Options</h3>
+            <div class="filter-group">
+                <label for="metric">Pie Chart Metric</label>
+                <select name="metric" id="metric">
+                    {% for m in pie_metrics %}
+                        <option value="{{ m }}" {% if m == selected_metric %}selected{% endif %}>{{ m|title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <button type="submit" class="submit-btn">Apply Changes</button>
+        </form>
+    </aside>
+
+    <main class="main-content">
+        <div class="chart-card">
+            <h2>Real Estate Analytics Map</h2>
+            <div id="plotly-chart"></div>
+        </div>
+
+        <div class="chart-card">
+            <h2>Area vs Price</h2>
+            <div id="plotly-scatter-chart"></div>
+        </div>
+
+        <div class="chart-card">
+            <h2>{{ selected_metric|title }} Distribution</h2>
+            <div id="plotly-pie-chart"></div>
+        </div>
+
+        <div class="chart-card">
+            <h2>BHK Price Range</h2>
+            <div id="plotly-box-chart"></div>
+        </div>
+    </main>
+</div>
+
+<script>
+    const config = { responsive: true, displayModeBar: true };
+
+    const graph = JSON.parse('{{ graphJSON|escapejs }}');
+    Plotly.newPlot('plotly-chart', graph.data, graph.layout, config);
+
+    const graph1 = JSON.parse('{{ graphJSON1|escapejs }}');
+    Plotly.newPlot('plotly-scatter-chart', graph1.data, graph1.layout, config);
+
+    const graph2 = JSON.parse('{{ graphJSON2|escapejs }}');
+    Plotly.newPlot('plotly-pie-chart', graph2.data, graph2.layout, config);
+
+    const graph3 = JSON.parse('{{ graphJSON3|escapejs }}');
+    Plotly.newPlot('plotly-box-chart', graph3.data, graph3.layout, config);
+</script>
+{% endblock %}
