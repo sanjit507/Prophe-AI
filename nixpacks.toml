@@ -1,5 +1,2 @@
-[providers.python]
-python_version = "3.10"
-
-[build]
-pip_install_args = "install --upgrade pip setuptools wheel && pip install -r requirements.txt"
+[phases.install]
+cmds = ["pip install --upgrade pip setuptools wheel", "pip install -r requirements.txt"]
