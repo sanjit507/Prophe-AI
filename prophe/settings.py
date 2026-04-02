@@ -43,17 +43,27 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-change-me')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'False').lower() in {'1', 'true', 'yes', 'on'}
 
-ALLOWED_HOSTS = [
-    host.strip()
-    for host in os.getenv('ALLOWED_HOSTS', '127.0.0.1,localhost').split(',')
-    if host.strip()
-]
+def _split_csv_env(var_name: str, default: str = ''):
+    return [
+        item.strip()
+        for item in os.getenv(var_name, default).split(',')
+        if item.strip()
+    ]
 
-CSRF_TRUSTED_ORIGINS = [
-    origin.strip()
-    for origin in os.getenv('CSRF_TRUSTED_ORIGINS', '').split(',')
-    if origin.strip()
-]
+
+# Railway deploys apps on subdomains of up.railway.app. If ALLOWED_HOSTS isn't
+# explicitly set, include that suffix to avoid DisallowedHost (400) in prod.
+ALLOWED_HOSTS = _split_csv_env(
+    'ALLOWED_HOSTS',
+    '127.0.0.1,localhost,.up.railway.app',
+)
+
+
+# Needed for POSTs (admin/forms) when running behind HTTPS on a platform domain.
+CSRF_TRUSTED_ORIGINS = _split_csv_env(
+    'CSRF_TRUSTED_ORIGINS',
+    'https://*.up.railway.app',
+)
 
 
 # Application definition
