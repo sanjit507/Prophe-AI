@@ -21,3 +21,4 @@ typing_extensions==4.12.2
 tzdata==2024.1
 narwhals==1.8.0
 gunicorn==21.2.0
+whitenoise==6.7.0
